@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FairShare — Shared Expenses, Simplified</title>
+  <meta name="description"
+    content="FairShare makes it effortless to track shared expenses, calculate who owes what, and settle up with friends, roommates, and travel buddies.">
+  <meta property="og:title" content="FairShare — Shared Expenses, Simplified">
+  <meta property="og:description"
+    content="Track shared expenses, calculate splits, and settle up — no more awkward money conversations.">
+  <meta property="og:type" content="website">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💸</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <a href="#page-home" class="skip-to-content">Skip to content</a>
+
+  <nav>
+    <div class="nav-brand" onclick="navigate('home')" role="button" aria-label="FairShare Home">
+      <div class="nav-logo-dot"></div>
+      Fair<span>Share</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="navigate('home')" id="nav-home">Home</button>
+      <button class="nav-link" onclick="navigate('dashboard')" id="nav-dashboard">Dashboard</button>
+      <button class="nav-link" onclick="navigate('groups')" id="nav-groups">Groups</button>
+      <button class="nav-link" onclick="navigate('expenses')" id="nav-expenses">Expenses</button>
+      <button class="nav-link" onclick="navigate('settlement')" id="nav-settlement">Settlement</button>
+      <button class="nav-link" onclick="navigate('reports')" id="nav-reports">Reports</button>
+      <button class="nav-link" onclick="navigate('about')" id="nav-about">About</button>
+    </div>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="btn btn-ghost btn-sm" aria-label="Toggle theme">🌙</button>
+      <button id="auth-status-btn" class="btn btn-ghost btn-sm" onclick="navigate('login')"
+        style="display:none">Login</button>
+      <button id="profile-btn" class="btn btn-ghost btn-sm" onclick="navigate('profile')" style="display:none">👤
+        Profile</button>
+      <button id="logout-btn" class="btn btn-danger btn-sm" onclick="logout()" style="display:none">Logout</button>
+      <button id="get-started-btn" class="btn btn-primary btn-sm" onclick="navigate('dashboard')"
+        style="display:none">Get Started</button>
+      <button class="hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="nav-link" onclick="navigate('home')">Home</button>
+    <button class="nav-link" onclick="navigate('dashboard')">Dashboard</button>
+    <button class="nav-link" onclick="navigate('groups')">Groups</button>
+    <button class="nav-link" onclick="navigate('expenses')">Expenses</button>
+    <button class="nav-link" onclick="navigate('settlement')">Settlement</button>
+    <button class="nav-link" onclick="navigate('reports')">Reports</button>
+    <button class="nav-link" onclick="navigate('about')">About</button>
+  </div>
+
+  <main id="main-content">
+
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page active">
+      <section class="hero">
+        <div class="hero-bg">
+          <div class="hero-orb orb1"></div>
+          <div class="hero-orb orb2"></div>
+          <div class="hero-orb orb3"></div>
+          <div class="hero-grid"></div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-badge">🎉 Real-time group expense splitting</div>
+          <h1>Split expenses,<br>not <em>friendships</em></h1>
+          <p class="hero-sub">FairShare makes it effortless to track shared expenses, calculate who owes what, and
+            settle up — no more awkward money conversations.</p>
+          <div class="hero-ctas">
+            <button class="btn btn-primary btn-lg" onclick="navigate('dashboard')">🚀 Start for Free</button>
+            <button class="btn btn-ghost btn-lg" onclick="navigate('about')">How it works</button>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-num">50K+</div>
+              <div class="hero-stat-label">Active Groups</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">₹2.4M</div>
+              <div class="hero-stat-label">Settled Monthly</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">12</div>
+              <div class="hero-stat-label">Currencies</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="features">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">Everything you need to<br>split without stress</h2>
+        <p class="section-sub">From a spontaneous trip to monthly shared utilities — FairShare handles it all.</p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(124,106,245,.15)">🏠</div>
+            <h3>Smart Groups</h3>
+            <p>Create groups for trips, roommates, events. Invite via link or tag. Role-based access for group admins.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(45,212,167,.15)">⚡</div>
+            <h3>Flexible Splits</h3>
+            <p>Split equally, by exact amount, or by percentage. FairShare calculates the cleanest settlement path
+              automatically.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(245,166,35,.15)">📊</div>
+            <h3>Rich Analytics</h3>
+            <p>Weekly spending graphs, category breakdowns, and monthly summaries. Export to PDF or CSV anytime.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(245,90,106,.15)">🌍</div>
+            <h3>Multi-Currency</h3>
+            <p>Travel without worry. Add expenses in any currency — FairShare converts and tracks everything in your
+              home currency.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(124,106,245,.15)">🔴</div>
+            <h3>Live Collaboration</h3>
+            <p>Real-time updates when anyone adds or edits an expense. No refresh needed — stay in sync always.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon" style="background:rgba(45,212,167,.15)">🔐</div>
+            <h3>Secure & Private</h3>
+            <p>JWT-secured sessions, encrypted data, granular privacy controls. Your financial data stays yours.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="page-dashboard" class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="page-title" id="user-greeting"></div>
+            <div class="page-subtitle">Here's your financial snapshot</div>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:center">
+            <span class="currency-tag">INR ₹</span>
+            <button class="btn btn-primary btn-sm" onclick="openModal('add-expense-modal')">+ Add Expense</button>
+          </div>
+        </div>
+        <div id="dashboard-content">
+          <div class="stat-cards">
+            <div class="stat-card accent">
+              <div class="stat-label">🗂 Total Expenses</div>
+              <div class="stat-value" id="total-expense"></div>
+              <div class="stat-change" id="total-expense-sub"></div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-label">✅ You are owed</div>
+              <div class="stat-value green" id="owed-amount"></div>
+              <div class="stat-change" id="owed-amount-sub"></div>
+            </div>
+            <div class="stat-card red">
+              <div class="stat-label">💸 You owe</div>
+              <div class="stat-value red" id="owe-amount"></div>
+              <div class="stat-change" id="owe-amount-sub"></div>
+            </div>
+            <div class="stat-card orange">
+              <div class="stat-label">🏦 Net Balance</div>
+              <div class="stat-value green" id="net-balance"></div>
+              <div class="stat-change" id="net-balance-sub"></div>
+            </div>
+          </div>
+          <div class="grid-3" style="margin-bottom:1.25rem">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Weekly Spending</div>
+                <span class="badge badge-purple">This Month</span>
+              </div>
+              <div class="chart-container" id="weeklyChart"></div>
+              <div style="display:flex;justify-content:space-between;margin-top:.75rem">
+                <span style="font-size:.75rem;color:var(--muted)">Week 1</span>
+                <span style="font-size:.75rem;color:var(--muted)">Week 2</span>
+                <span style="font-size:.75rem;color:var(--muted)">Week 3</span>
+                <span style="font-size:.75rem;color:var(--muted)">Week 4</span>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Balances</div>
+                <button class="card-link" onclick="navigate('settlement')">Settle →</button>
+              </div>
+              <div id="dashboard-balances-list">
+                <div style="padding:1.5rem;text-align:center;color:var(--muted);font-size:0.9rem">No balances to show</div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Recent Activity</div>
+                <button class="card-link" onclick="navigate('expenses')">View all →</button>
+              </div>
+              <div id="dashboard-activity-list">
+                <div style="padding:1.5rem;text-align:center;color:var(--muted);font-size:0.9rem">No recent activity</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Your Groups</div>
+                <button class="card-link" onclick="navigate('groups')">Manage →</button>
+              </div>
+              <div id="dashboard-groups-list">
+                <div style="padding:1.5rem;text-align:center;color:var(--muted);font-size:0.9rem">No groups created yet</div>
+              </div>
+              <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:1rem;justify-content:center"
+                onclick="openModal('create-group-modal')">+ Create Group</button>
+            </div>
+          </div>
+        </div>
+        <div id="dashboard-empty" style="display:none;text-align:center;padding:4rem 2rem;">
+          <div style="font-size:3rem;margin-bottom:1rem;">📝</div>
+          <h3 style="margin-bottom:0.5rem;font-size:1.5rem;font-weight:700;">No expenses yet</h3>
+          <p style="color:var(--muted);margin-bottom:1.5rem;">Add your first expense to see insights, balances, and
+            charts.</p>
+          <button class="btn btn-primary" style="margin:0 auto;" onclick="openModal('add-expense-modal')">+ Add
+            Expense</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUPS PAGE -->
+    <div id="page-groups" class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Groups</div>
+            <div class="page-subtitle">Manage all your shared expense circles</div>
+          </div>
+          <div style="display:flex;gap:.75rem">
+            <button class="btn btn-ghost btn-sm" onclick="openModal('join-group-modal')">🔗 Join via Link</button>
+            <button class="btn btn-primary btn-sm" onclick="openModal('create-group-modal')">+ Create Group</button>
+          </div>
+        </div>
+        <div class="groups-grid">
+          <div class="group-card" onclick="navigate('group-detail')">
+            <div class="group-card-header">
+              <div class="group-icon" style="background:rgba(124,106,245,.15)">🏖️</div>
+              <div>
+                <div class="group-name">Goa Trip '24</div>
+                <div class="group-members">5 members • Created by you</div>
+              </div>
+              <span class="badge badge-purple" style="margin-left:auto">Admin</span>
+            </div>
+            <div class="member-pile">
+              <div class="avatar" style="background:rgba(124,106,245,.2);color:var(--accent)">AJ</div>
+              <div class="avatar" style="background:rgba(45,212,167,.15);color:var(--green)">PR</div>
+              <div class="avatar" style="background:rgba(245,166,35,.15);color:var(--accent2)">RK</div>
+              <div class="avatar" style="background:rgba(245,90,106,.15);color:var(--red)">SM</div>
+              <div class="avatar" style="background:rgba(124,106,245,.15);color:var(--accent)">VN</div>
+            </div>
+            <div class="group-stats">
+              <div>
+                <div class="group-stat-label">Total</div>
+                <div class="group-stat-value">₹32,400</div>
+              </div>
+              <div>
+                <div class="group-stat-label">Your balance</div>
+                <div class="group-stat-value" style="color:var(--red)">−₹900</div>
+              </div>
+            </div>
+          </div>
+          <div class="group-card" onclick="navigate('group-detail')">
+            <div class="group-card-header">
+              <div class="group-icon" style="background:rgba(45,212,167,.15)">🏠</div>
+              <div>
+                <div class="group-name">Apartment 4B</div>
+                <div class="group-members">3 members • Monthly bills</div>
+              </div>
+              <span class="badge badge-green">Active</span>
+            </div>
+            <div class="member-pile">
+              <div class="avatar" style="background:rgba(124,106,245,.2);color:var(--accent)">AJ</div>
+              <div class="avatar" style="background:rgba(45,212,167,.15);color:var(--green)">RK</div>
+              <div class="avatar" style="background:rgba(245,166,35,.15);color:var(--accent2)">KP</div>
+            </div>
+            <div class="group-stats">
+              <div>
+                <div class="group-stat-label">Total</div>
+                <div class="group-stat-value">₹18,200</div>
+              </div>
+              <div>
+                <div class="group-stat-label">Your balance</div>
+                <div class="group-stat-value" style="color:var(--green)">+₹2,100</div>
+              </div>
+            </div>
+          </div>
+          <div class="group-card" onclick="navigate('group-detail')">
+            <div class="group-card-header">
+              <div class="group-icon" style="background:rgba(245,166,35,.15)">🍽️</div>
+              <div>
+                <div class="group-name">Office Lunch Circle</div>
+                <div class="group-members">8 members • Recurring</div>
+              </div>
+              <span class="badge badge-green">Settled</span>
+            </div>
+            <div class="member-pile">
+              <div class="avatar" style="background:rgba(124,106,245,.2);color:var(--accent)">AJ</div>
+              <div class="avatar" style="background:rgba(45,212,167,.15);color:var(--green)">SM</div>
+              <div class="avatar" style="background:rgba(245,166,35,.15);color:var(--accent2)">MK</div>
+              <div class="avatar" style="background:rgba(245,90,106,.15);color:var(--red)">+5</div>
+            </div>
+            <div class="group-stats">
+              <div>
+                <div class="group-stat-label">Total</div>
+                <div class="group-stat-value">₹9,650</div>
+              </div>
+              <div>
+                <div class="group-stat-label">Your balance</div>
+                <div class="group-stat-value" style="color:var(--green)">₹0</div>
+              </div>
+            </div>
+          </div>
+          <div class="group-card" onclick="navigate('group-detail')">
+            <div class="group-card-header">
+              <div class="group-icon" style="background:rgba(245,90,106,.15)">🎬</div>
+              <div>
+                <div class="group-name">Movie Night Squad</div>
+                <div class="group-members">4 members</div>
+              </div>
+              <span class="badge badge-yellow">Pending</span>
+            </div>
+            <div class="member-pile">
+              <div class="avatar" style="background:rgba(124,106,245,.2);color:var(--accent)">AJ</div>
+              <div class="avatar" style="background:rgba(45,212,167,.15);color:var(--green)">VN</div>
+              <div class="avatar" style="background:rgba(245,166,35,.15);color:var(--accent2)">PR</div>
+              <div class="avatar" style="background:rgba(245,90,106,.15);color:var(--red)">TK</div>
+            </div>
+            <div class="group-stats">
+              <div>
+                <div class="group-stat-label">Total</div>
+                <div class="group-stat-value">₹3,400</div>
+              </div>
+              <div>
+                <div class="group-stat-label">Your balance</div>
+                <div class="group-stat-value" style="color:var(--red)">−₹850</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROUP DETAIL PAGE -->
+    <div id="page-group-detail" class="page">
+      <div class="page-inner">
+        <button class="btn btn-ghost btn-sm" style="margin-bottom:1.25rem" onclick="navigate('groups')">← Back to
+          Groups</button>
+        <div class="group-detail-hero">
+          <div class="group-detail-icon" style="background:rgba(124,106,245,.15)">🏖️</div>
+          <div class="group-detail-info">
+            <h2>Goa Trip '24</h2>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">
+              <span class="badge badge-purple">Admin</span>
+              <span class="badge badge-green">Active</span>
+            </div>
+            <div class="group-detail-meta">
+              <span>📅 Sept 12 – 16, 2024</span>
+              <span>👥 5 members</span>
+              <span>💰 ₹32,400 total</span>
+            </div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:.75rem;flex-wrap:wrap">
+            <button class="btn btn-ghost btn-sm">🔗 Invite Link</button>
+            <button class="btn btn-primary btn-sm" onclick="openModal('add-expense-modal')">+ Add Expense</button>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Members & Balances</div>
+            </div>
+            <div class="balance-row">
+              <div class="balance-user">
+                <div class="avatar" style="background:rgba(124,106,245,.2);color:var(--accent)">AJ</div>
+                <div>
+                  <div style="font-size:.88rem;font-weight:500">Darshana Ahuja <span
+                      style="font-size:.72rem;color:var(--accent)">(you)</span></div>
+                  <div style="font-size:.75rem;color:var(--muted)">Admin · Paid ₹8,200</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--red)">−₹900</div>
+            </div>
+            <div class="balance-row">
+              <div class="balance-user">
+                <div class="avatar" style="background:rgba(45,212,167,.15);color:var(--green)">PR</div>
+                <div>
+                  <div style="font-size:.88rem;font-weight:500">Priya Rao</div>
+                  <div style="font-size:.75rem;color:var(--muted)">Paid ₹12,400</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--green)">+₹5,900</div>
+            </div>
+            <div class="balance-row">
+              <div class="balance-user">
+                <div class="avatar" style="background:rgba(245,166,35,.15);color:var(--accent2)">RK</div>
+                <div>
+                  <div style="font-size:.88rem;font-weight:500">Rahul Kumar</div>
+                  <div style="font-size:.75rem;color:var(--muted)">Paid ₹6,800</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--red)">−₹1,680</div>
+            </div>
+            <div class="balance-row">
+              <div class="balance-user">
+                <div class="avatar" style="background:rgba(245,90,106,.15);color:var(--red)">SM</div>
+                <div>
+                  <div style="font-size:.88rem;font-weight:500">Sneha Mehta</div>
+                  <div style="font-size:.75rem;color:var(--muted)">Paid ₹3,000</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--red)">−₹3,480</div>
+            </div>
+            <div class="balance-row">
+              <div class="balance-user">
+                <div class="avatar" style="background:rgba(124,106,245,.15);color:var(--accent)">VN</div>
+                <div>
+                  <div style="font-size:.88rem;font-weight:500">Vikram Nair</div>
+                  <div style="font-size:.75rem;color:var(--muted)">Paid ₹2,000</div>
+                </div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--red)">−₹4,480</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Optimal Settlements</div><span class="badge badge-yellow">3 pending</span>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(245,90,106,.15);color:var(--red);width:32px;height:32px;font-size:.72rem">SM
+              </div>
+              <span class="settle-arrow">→</span>
+              <div class="avatar"
+                style="background:rgba(45,212,167,.15);color:var(--green);width:32px;height:32px;font-size:.72rem">PR
+              </div>
+              <div style="flex:1;margin-left:.5rem">
+                <div style="font-size:.88rem">Sneha → Priya</div>
+              </div>
+              <div class="settle-amount">₹3,480</div>
+              <button class="btn btn-success btn-sm">Mark Paid</button>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(124,106,245,.15);color:var(--accent);width:32px;height:32px;font-size:.72rem">VN
+              </div>
+              <span class="settle-arrow">→</span>
+              <div class="avatar"
+                style="background:rgba(45,212,167,.15);color:var(--green);width:32px;height:32px;font-size:.72rem">PR
+              </div>
+              <div style="flex:1;margin-left:.5rem">
+                <div style="font-size:.88rem">Vikram → Priya</div>
+              </div>
+              <div class="settle-amount">₹2,420</div>
+              <button class="btn btn-success btn-sm">Mark Paid</button>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(124,106,245,.2);color:var(--accent);width:32px;height:32px;font-size:.72rem">AJ
+              </div>
+              <span class="settle-arrow">→</span>
+              <div class="avatar"
+                style="background:rgba(45,212,167,.15);color:var(--green);width:32px;height:32px;font-size:.72rem">PR
+              </div>
+              <div style="flex:1;margin-left:.5rem">
+                <div style="font-size:.88rem">You → Priya</div>
+              </div>
+              <div class="settle-amount">₹900</div>
+              <button class="btn btn-primary btn-sm" onclick="openPaymentModal(this)">Pay Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:1.25rem">
+          <div class="card-header">
+            <div class="card-title">Expense Breakdown</div>
+            <button class="btn btn-ghost btn-sm" onclick="openModal('add-expense-modal')">+ Add</button>
+          </div>
+          <div class="table-responsive">
+            <table class="expenses-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Paid By</th>
+                  <th>Split</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Hotel – 4 nights</td>
+                  <td><span class="cat-badge" style="background:rgba(124,106,245,.12);color:var(--accent)">🏨
+                      Stay</span></td>
+                  <td>Priya</td>
+                  <td>Equal (5)</td>
+                  <td>Sept 12</td>
+                  <td style="font-family:'JetBrains Mono',monospace">₹12,000</td>
+                </tr>
+                <tr>
+                  <td>Petrol (Mumbai→Goa)</td>
+                  <td><span class="cat-badge" style="background:rgba(245,90,106,.12);color:var(--red)">⛽
+                      Transport</span></td>
+                  <td>Vikram</td>
+                  <td>Equal (4)</td>
+                  <td>Sept 12</td>
+                  <td style="font-family:'JetBrains Mono',monospace">₹4,400</td>
+                </tr>
+                <tr>
+                  <td>Dinner at Thalassa</td>
+                  <td><span class="cat-badge" style="background:rgba(245,166,35,.12);color:var(--accent2)">🍽️
+                      Food</span></td>
+                  <td>Darshana</td>
+                  <td>Custom</td>
+                  <td>Sept 13</td>
+                  <td style="font-family:'JetBrains Mono',monospace">₹6,800</td>
+                </tr>
+                <tr>
+                  <td>Water Sports</td>
+                  <td><span class="cat-badge" style="background:rgba(45,212,167,.12);color:var(--green)">🏄
+                      Activity</span></td>
+                  <td>Priya</td>
+                  <td>Equal (5)</td>
+                  <td>Sept 14</td>
+                  <td style="font-family:'JetBrains Mono',monospace">₹5,500</td>
+                </tr>
+                <tr>
+                  <td>Groceries &amp; Snacks</td>
+                  <td><span class="cat-badge" style="background:rgba(245,166,35,.12);color:var(--accent2)">🛒
+                      Food</span></td>
+                  <td>Sneha</td>
+                  <td>Equal (5)</td>
+                  <td>Sept 15</td>
+                  <td style="font-family:'JetBrains Mono',monospace">₹2,200</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card" style="margin-top:1.25rem">
+          <div class="card-header">
+            <div class="card-title">Activity Log</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon" style="background:rgba(124,106,245,.15)">✏️</div>
+            <div class="activity-info">
+              <div class="activity-title">Priya edited "Hotel – 4 nights" amount</div>
+              <div class="activity-meta">2 hours ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon" style="background:rgba(45,212,167,.15)">✅</div>
+            <div class="activity-info">
+              <div class="activity-title">Rahul marked payment to Priya as complete</div>
+              <div class="activity-meta">1 day ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon" style="background:rgba(245,166,35,.15)">➕</div>
+            <div class="activity-info">
+              <div class="activity-title">Sneha added "Groceries &amp; Snacks"</div>
+              <div class="activity-meta">2 days ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPENSES PAGE -->
+    <div id="page-expenses" class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Expenses</div>
+            <div class="page-subtitle">All your transactions in one place</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openModal('add-expense-modal')">+ Add Expense</button>
+        </div>
+        <div class="filter-bar">
+          <span style="font-size:.85rem;color:var(--muted)">Filter:</span>
+          <button class="filter-chip active">All</button>
+          <button class="filter-chip">🏖️ Goa Trip</button>
+          <button class="filter-chip">🏠 Apartment</button>
+          <button class="filter-chip">🍽️ Food</button>
+          <button class="filter-chip">🚗 Transport</button>
+          <button class="filter-chip">🏨 Stay</button>
+          <input type="month" class="form-input" style="width:auto;padding:.35rem .75rem;font-size:.82rem"
+            value="2024-10">
+        </div>
+        <div class="card">
+          <table class="expenses-table" id="expenses-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Group</th>
+                <th>Category</th>
+                <th>Paid By</th>
+                <th>Split</th>
+                <th>Your Share</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dinner at Hakkasan</strong></td>
+                <td>🏖️ Goa Trip</td>
+                <td><span class="cat-badge" style="background:rgba(245,166,35,.12);color:var(--accent2)">🍽️ Food</span>
+                </td>
+                <td>Priya</td>
+                <td>Equal</td>
+                <td style="color:var(--red)">−₹620</td>
+                <td>Oct 15</td>
+                <td style="font-family:'JetBrains Mono',monospace">₹3,100</td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td><strong>October Rent</strong></td>
+                <td>🏠 Apt 4B</td>
+                <td><span class="cat-badge" style="background:rgba(124,106,245,.12);color:var(--accent)">🏠 Bills</span>
+                </td>
+                <td>You</td>
+                <td>Equal</td>
+                <td style="color:var(--green)">+₹2,100</td>
+                <td>Oct 1</td>
+                <td style="font-family:'JetBrains Mono',monospace">₹6,300</td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td><strong>Petrol – Road Trip</strong></td>
+                <td>🏖️ Goa Trip</td>
+                <td><span class="cat-badge" style="background:rgba(245,90,106,.12);color:var(--red)">⛽ Transport</span>
+                </td>
+                <td>Vikram</td>
+                <td>Equal</td>
+                <td style="color:var(--red)">−₹430</td>
+                <td>Sept 27</td>
+                <td style="font-family:'JetBrains Mono',monospace">₹2,150</td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td><strong>Movie Tickets – Jigra</strong></td>
+                <td>🎬 Movies</td>
+                <td><span class="cat-badge" style="background:rgba(45,212,167,.12);color:var(--green)">🎬
+                    Entertain</span></td>
+                <td>You</td>
+                <td>Equal</td>
+                <td style="color:var(--green)">+₹850</td>
+                <td>Sept 25</td>
+                <td style="font-family:'JetBrains Mono',monospace">₹3,400</td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td><strong>Office Lunch Order</strong></td>
+                <td>🍽️ Office</td>
+                <td><span class="cat-badge" style="background:rgba(245,166,35,.12);color:var(--accent2)">🍱 Food</span>
+                </td>
+                <td>Sneha</td>
+                <td>%</td>
+                <td style="color:var(--green)">+₹320</td>
+                <td>Sept 24</td>
+                <td style="font-family:'JetBrains Mono',monospace">₹1,600</td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+              <tr>
+                <td><strong>Hotel – 4 nights</strong></td>
+                <td>🏖️ Goa Trip</td>
+                <td><span class="cat-badge" style="background:rgba(124,106,245,.12);color:var(--accent)">🏨 Stay</span>
+                </td>
+                <td>Priya</td>
+                <td>Equal</td>
+                <td style="color:var(--red)">−₹2,400</td>
+                <td>Sept 12</td>
+                <td style="font-family:'JetBrains Mono',monospace">₹12,000</td>
+                <td><button class="btn btn-ghost btn-sm">⋯</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORTS PAGE -->
+    <div id="page-reports" class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Reports & Analytics</div>
+            <div class="page-subtitle">Understand your spending patterns</div>
+          </div>
+          <div style="display:flex;gap:.75rem">
+            <button class="btn btn-ghost btn-sm" onclick="exportReportPDF()">📄 Export PDF</button>
+          </div>
+        </div>
+        <div class="stat-cards" style="margin-bottom:1.5rem">
+          <div class="stat-card accent">
+            <div class="stat-label">💸 This Month</div>
+            <div class="stat-value">₹18,450</div>
+            <div class="stat-change down">↑ 12% vs last month</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">📦 Avg/Transaction</div>
+            <div class="stat-value">₹1,845</div>
+            <div class="stat-change">10 expenses</div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-label">🏆 Most Expensive</div>
+            <div class="stat-value">Food</div>
+            <div class="stat-change">₹6,200 · 34%</div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Monthly Spending</div><span class="badge badge-purple">2024</span>
+            </div>
+            <div id="monthlyChart" class="chart-container"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Category Breakdown</div>
+            </div>
+            <div class="donut-row">
+              <div class="donut-item">
+                <div class="donut-color" style="background:#f5a623"></div>
+                <div class="donut-label">Food & Dining</div>
+                <div class="donut-bar">
+                  <div class="donut-bar-fill" style="width:34%;background:#f5a623"></div>
+                </div>
+                <div class="donut-pct">34%</div>
+                <div class="donut-value">₹6,273</div>
+              </div>
+              <div class="donut-item">
+                <div class="donut-color" style="background:#7c6af5"></div>
+                <div class="donut-label">Accommodation</div>
+                <div class="donut-bar">
+                  <div class="donut-bar-fill" style="width:28%;background:#7c6af5"></div>
+                </div>
+                <div class="donut-pct">28%</div>
+                <div class="donut-value">₹5,166</div>
+              </div>
+              <div class="donut-item">
+                <div class="donut-color" style="background:#f55a6a"></div>
+                <div class="donut-label">Transport</div>
+                <div class="donut-bar">
+                  <div class="donut-bar-fill" style="width:18%;background:#f55a6a"></div>
+                </div>
+                <div class="donut-pct">18%</div>
+                <div class="donut-value">₹3,321</div>
+              </div>
+              <div class="donut-item">
+                <div class="donut-color" style="background:#2dd4a7"></div>
+                <div class="donut-label">Entertainment</div>
+                <div class="donut-bar">
+                  <div class="donut-bar-fill" style="width:12%;background:#2dd4a7"></div>
+                </div>
+                <div class="donut-pct">12%</div>
+                <div class="donut-value">₹2,214</div>
+              </div>
+              <div class="donut-item">
+                <div class="donut-color" style="background:#5599ff"></div>
+                <div class="donut-label">Utilities & Bills</div>
+                <div class="donut-bar">
+                  <div class="donut-bar-fill" style="width:8%;background:#5599ff"></div>
+                </div>
+                <div class="donut-pct">8%</div>
+                <div class="donut-value">₹1,476</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:1.25rem">
+          <div class="card-header">
+            <div class="card-title">Monthly Summary</div>
+          </div>
+          <table class="expenses-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Total Expenses</th>
+                <th>You Paid</th>
+                <th>You Owed</th>
+                <th>Settled</th>
+                <th>Net</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>October 2024</strong></td>
+                <td>₹18,450</td>
+                <td>₹9,200</td>
+                <td>₹4,300</td>
+                <td><span class="badge badge-yellow">Partial</span></td>
+                <td style="color:var(--green);font-family:'JetBrains Mono',monospace">+₹2,450</td>
+              </tr>
+              <tr>
+                <td>September 2024</td>
+                <td>₹32,400</td>
+                <td>₹8,200</td>
+                <td>₹6,480</td>
+                <td><span class="badge badge-yellow">Partial</span></td>
+                <td style="color:var(--red);font-family:'JetBrains Mono',monospace">−₹1,320</td>
+              </tr>
+              <tr>
+                <td>August 2024</td>
+                <td>₹11,200</td>
+                <td>₹5,600</td>
+                <td>₹5,600</td>
+                <td><span class="badge badge-green">Full</span></td>
+                <td style="color:var(--green);font-family:'JetBrains Mono',monospace">₹0</td>
+              </tr>
+              <tr>
+                <td>July 2024</td>
+                <td>₹14,600</td>
+                <td>₹7,100</td>
+                <td>₹3,200</td>
+                <td><span class="badge badge-green">Full</span></td>
+                <td style="color:var(--green);font-family:'JetBrains Mono',monospace">+₹1,850</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTLEMENT PAGE -->
+    <div id="page-settlement" class="page">
+      <div class="page-inner">
+        <div class="page-header">
+          <div>
+            <div class="page-title">Settlements</div>
+            <div class="page-subtitle">Clear your dues, keep the peace</div>
+          </div>
+        </div>
+        <div class="stat-cards">
+          <div class="stat-card red">
+            <div class="stat-label">You owe (total)</div>
+            <div class="stat-value red">₹1,750</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Owed to you</div>
+            <div class="stat-value green">₹4,200</div>
+          </div>
+          <div class="stat-card accent">
+            <div class="stat-label">Transactions pending</div>
+            <div class="stat-value">5</div>
+          </div>
+        </div>
+        <div class="grid-2" style="margin-top:1.5rem">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">You Need to Pay</div><span class="badge badge-red">2 pending</span>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(124,106,245,.2);color:var(--accent);width:36px;height:36px;font-size:.78rem">AJ
+              </div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:600">You → Priya Rao</div>
+                <div style="font-size:.78rem;color:var(--muted)">Goa Trip · Due: Oct 20</div>
+              </div>
+              <div class="settle-amount">₹900</div>
+              <button class="btn btn-primary btn-sm" onclick="openPaymentModal(this)">Pay Now</button>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(124,106,245,.2);color:var(--accent);width:36px;height:36px;font-size:.78rem">AJ
+              </div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:600">You → Vikram Nair</div>
+                <div style="font-size:.78rem;color:var(--muted)">Movie Night · Due: Oct 22</div>
+              </div>
+              <div class="settle-amount">₹850</div>
+              <button class="btn btn-primary btn-sm" onclick="openPaymentModal(this)">Pay Now</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Awaiting Your Payment</div><span class="badge badge-green">3 pending</span>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(45,212,167,.15);color:var(--green);width:36px;height:36px;font-size:.78rem">RK
+              </div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:600">Rahul → You</div>
+                <div style="font-size:.78rem;color:var(--muted)">Apartment · Due: Oct 18</div>
+              </div>
+              <div class="settle-amount">₹2,100</div>
+              <button class="btn btn-success btn-sm">Mark Received</button>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(245,166,35,.15);color:var(--accent2);width:36px;height:36px;font-size:.78rem">SM
+              </div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:600">Sneha → You</div>
+                <div style="font-size:.78rem;color:var(--muted)">Office Lunch · Due: Oct 19</div>
+              </div>
+              <div class="settle-amount">₹850</div>
+              <button class="btn btn-success btn-sm">Mark Received</button>
+            </div>
+            <div class="settlement-item">
+              <div class="avatar"
+                style="background:rgba(124,106,245,.15);color:var(--accent);width:36px;height:36px;font-size:.78rem">KP
+              </div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:600">Kiran → You</div>
+                <div style="font-size:.78rem;color:var(--muted)">Apartment · Due: Oct 18</div>
+              </div>
+              <div class="settle-amount">₹1,250</div>
+              <button class="btn btn-success btn-sm">Mark Received</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:1.25rem">
+          <div class="card-header">
+            <div class="card-title">Payment History</div>
+          </div>
+          <div class="payment-history">
+            <div class="payment-item">
+              <div class="payment-status status-paid">✓</div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:500">Rahul → You · Apartment (Sept)</div>
+                <div style="font-size:.78rem;color:var(--muted)">Paid on Oct 3</div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;color:var(--green)">₹2,100</div>
+            </div>
+            <div class="payment-item">
+              <div class="payment-status status-paid">✓</div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:500">You → Priya · Goa Trip (Aug)</div>
+                <div style="font-size:.78rem;color:var(--muted)">Paid on Sept 28</div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;color:var(--red)">₹1,600</div>
+            </div>
+            <div class="payment-item">
+              <div class="payment-status status-pending">⌛</div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:500">Vikram → You · Movie Night</div>
+                <div style="font-size:.78rem;color:var(--muted)">Pending reminder sent</div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;color:var(--accent2)">₹850</div>
+            </div>
+            <div class="payment-item">
+              <div class="payment-status status-paid">✓</div>
+              <div style="flex:1">
+                <div style="font-size:.9rem;font-weight:500">You → Sneha · Office Lunch</div>
+                <div style="font-size:.78rem;color:var(--muted)">Paid on Sept 20</div>
+              </div>
+              <div style="font-family:'JetBrains Mono',monospace;color:var(--red)">₹240</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE / SETTINGS -->
+    <div id="page-profile" class="page">
+      <div class="page-inner" style="max-width:700px">
+        <button class="btn btn-ghost btn-sm" style="margin-bottom:1.5rem" onclick="navigate('dashboard')">← Back to
+          Dashboard</button>
+        <div class="page-title" style="margin-bottom:1.5rem">Your Profile</div>
+        <div class="profile-header">
+          <div class="profile-avatar" id="profile-avatar">DA</div>
+          <div>
+            <div class="profile-name" id="profile-name">Darshana Ahuja</div>
+            <div class="profile-email" id="profile-email">darshana.ahuja@email.com</div>
+            <div style="display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap">
+              <span class="badge badge-purple">Premium Member</span>
+              <span class="badge badge-green">✓ Verified Email</span>
+              <span id="last-login-badge" class="badge"
+                style="background:rgba(124,106,245,.12);color:var(--accent)">Active Now</span>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="toggleEditProfile()" id="edit-profile-btn">Edit Profile</button>
+        </div>
+
+        <!-- Edit Profile Form (Hidden by default) -->
+        <div id="edit-profile-section" style="display:none;margin-bottom:1.5rem">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Edit Your Information</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-input" id="edit-first-name" placeholder="First Name">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-input" id="edit-last-name" placeholder="Last Name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" id="edit-email" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number (optional)</label>
+              <input type="tel" class="form-input" id="edit-phone" placeholder="+91 XXXXX XXXXX">
+            </div>
+            <div style="display:flex;gap:.75rem">
+              <button class="btn btn-ghost" style="flex:1;justify-content:center"
+                onclick="toggleEditProfile()">Cancel</button>
+              <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="saveProfileChanges()">Save
+                Changes</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Statistics -->
+        <div class="stat-cards" style="margin-bottom:1.5rem">
+          <div class="stat-card accent">
+            <div class="stat-label">📊 Groups Joined</div>
+            <div class="stat-value" id="stat-groups">4</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">✅ Total Settled</div>
+            <div class="stat-value green" id="stat-settled">₹28,900</div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-label">📅 Member Since</div>
+            <div class="stat-value" id="stat-member-since" style="font-size:1rem">2024</div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Preferences</div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Default Currency</div>
+              <div class="settings-item-sub">Used for new groups and expenses</div>
+            </div>
+            <select class="form-input" id="currency-select" style="width:auto;padding:.35rem .75rem"
+              onchange="saveCurrency()">
+              <option value="INR">₹ INR</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+            </select>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Dark Mode</div>
+              <div class="settings-item-sub">Currently active</div>
+            </div>
+            <div class="toggle on" id="dark-mode-toggle" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Email Notifications</div>
+              <div class="settings-item-sub">When someone adds an expense</div>
+            </div>
+            <div class="toggle on" id="email-notify-toggle" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Payment Reminders</div>
+              <div class="settings-item-sub">Auto-remind before due date</div>
+            </div>
+            <div class="toggle" id="payment-reminders-toggle" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Security & Account</div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Change Password</div>
+            </div><button class="btn btn-ghost btn-sm" onclick="openModal('change-password-modal')">Update</button>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Two-Factor Authentication</div>
+              <div class="settings-item-sub">Not enabled</div>
+            </div><button class="btn btn-primary btn-sm" onclick="openModal('2fa-modal')">Enable 2FA</button>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Active Sessions</div>
+              <div class="settings-item-sub" id="active-sessions">2 devices</div>
+            </div><button class="btn btn-danger btn-sm" onclick="openModal('sessions-modal')">Manage</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">Data & Privacy</div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Export My Data</div>
+              <div class="settings-item-sub">Download all expenses and groups</div>
+            </div><button class="btn btn-ghost btn-sm" onclick="exportData()">Export</button>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Privacy Policy</div>
+            </div><button class="btn btn-ghost btn-sm" onclick="openLink('privacy')">View</button>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Delete Account</div>
+              <div class="settings-item-sub">Permanently delete all your data</div>
+            </div><button class="btn btn-danger btn-sm" onclick="openModal('delete-account-modal')">Delete
+              Account</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-title">About & Help</div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">App Version</div>
+              <div class="settings-item-sub">1.2.0</div>
+            </div>
+          </div>
+          <div class="settings-item">
+            <div>
+              <div class="settings-item-label">Need Help?</div>
+            </div><button class="btn btn-primary btn-sm" onclick="openLink('support')">Contact Support</button>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+          <button class="btn btn-danger" style="width:100%;justify-content:center;padding:.8rem" onclick="logout()">🚪
+            Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="page-about" class="page">
+      <div class="page-inner">
+        <div class="about-hero">
+          <div class="section-label">How it works</div>
+          <h1>Simple as 1, 2, 3</h1>
+          <p style="color:var(--muted);line-height:1.7;margin-bottom:2rem">FairShare keeps your group finances
+            transparent, fair, and stress-free.</p>
+        </div>
+        <div class="steps-grid" style="max-width:900px;margin:0 auto 3rem">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-title">Create a Group</div>
+            <div class="step-desc">Start a group for your trip, apartment, or any shared context. Invite friends via a
+              sharable link.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-title">Add Expenses</div>
+            <div class="step-desc">Log expenses as they happen. Choose equal splits, custom amounts, or percentages.
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-title">Settle Up</div>
+            <div class="step-desc">FairShare calculates the minimum number of transactions to settle all debts. Pay and
+              done.</div>
+          </div>
+        </div>
+        <div style="max-width:700px;margin:0 auto">
+          <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:1.25rem">Frequently Asked Questions</h2>
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Is FairShare free to use? <span class="faq-arrow">›</span></div>
+            <div class="faq-answer">Yes! FairShare's core features are completely free. A Pro plan adds analytics
+              exports, priority support, and custom group themes.</div>
+          </div>
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">How does the split calculation work? <span class="faq-arrow">›</span></div>
+            <div class="faq-answer">FairShare uses a debt simplification algorithm to minimize the number of
+              transactions needed. Instead of everyone paying everyone, it calculates the fewest transfers that settle
+              all debts at once.</div>
+          </div>
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Can I use multiple currencies in one group? <span class="faq-arrow">›</span></div>
+            <div class="faq-answer">Absolutely. You can add expenses in any supported currency. FairShare converts them
+              to your group's base currency using live exchange rates.</div>
+          </div>
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Is my financial data secure? <span class="faq-arrow">›</span></div>
+            <div class="faq-answer">Your data is encrypted in transit and at rest. We use JWT-based authentication,
+              never store payment credentials, and offer two-factor authentication.</div>
+          </div>
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">How do I invite someone to a group? <span class="faq-arrow">›</span></div>
+            <div class="faq-answer">Each group has a unique invite link you can share via WhatsApp, email, or any
+              messaging app. Members can join without needing an account first.</div>
+          </div>
+          <div
+            style="text-align:center;margin-top:3rem;padding:2rem;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border)">
+            <div style="font-size:1.1rem;font-weight:700;margin-bottom:.5rem">Have more questions?</div>
+            <div style="color:var(--muted);margin-bottom:1.25rem">support@FairShare.app</div>
+            <button class="btn btn-primary">✉️ Contact Support</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- LOGIN PAGE -->
+    <div id="page-login" class="page">
+      <div class="login-page">
+        <div class="login-card">
+          <h2>Welcome back</h2>
+          <p>Sign in to your FairShare account</p>
+          <div class="tabs-auth">
+            <button class="tab-auth active" onclick="switchAuthTab(this,'login-form')">Sign In</button>
+            <button class="tab-auth" onclick="switchAuthTab(this,'signup-form')">Sign Up</button>
+          </div>
+          <div id="login-form">
+            <button class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 18 18">
+                <path fill="#4285F4"
+                  d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" />
+                <path fill="#34A853"
+                  d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.259c-.806.54-1.837.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" />
+                <path fill="#FBBC05"
+                  d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" />
+                <path fill="#EA4335"
+                  d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" />
+              </svg>
+              Continue with Google
+            </button>
+            <div class="divider">or</div>
+            <div class="form-group">
+              <label class="form-label" for="login-email">Email</label>
+              <input type="email" id="login-email" class="form-input" placeholder="you@example.com">
+              <div id="login-email-error" class="form-error"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-input" placeholder="••••••••">
+              <div id="login-password-error" class="form-error"></div>
+            </div>
+            <button class="btn btn-primary" id="btn-login-submit"
+              style="width:100%;justify-content:center;padding:.8rem" onclick="handleLoginSubmit(event)">Sign In
+              →</button>
+            <div style="text-align:center;margin-top:1rem;font-size:.85rem;color:var(--muted)">Forgot password? <span
+                style="color:var(--accent);cursor:pointer">Reset it</span></div>
+          </div>
+          <div id="signup-form" style="display:none">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="signup-first-name">First Name</label>
+                <input type="text" id="signup-first-name" class="form-input" placeholder="First name">
+                <div id="signup-fn-error" class="form-error"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="signup-last-name">Last Name</label>
+                <input type="text" id="signup-last-name" class="form-input" placeholder="Last name">
+                <div id="signup-ln-error" class="form-error"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="signup-email">Email</label>
+              <input type="email" id="signup-email" class="form-input" placeholder="you@example.com">
+              <div id="signup-email-error" class="form-error"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="signup-password">Password</label>
+              <input type="password" id="signup-password" class="form-input" placeholder="Min. 8 characters">
+              <div id="signup-pw-error" class="form-error"></div>
+            </div>
+            <button class="btn btn-primary" id="btn-signup-submit"
+              style="width:100%;justify-content:center;padding:.8rem" onclick="handleSignupSubmit(event)">Create Account
+              →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <div class="nav-logo-dot"></div>
+          Fair<span>Share</span>
+        </div>
+        <p class="footer-desc">The smartest way to split expenses with friends, family, and coworkers. Built for speed,
+          privacy, and peace of mind.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Product</h4>
+        <ul class="footer-links">
+          <li onclick="navigate('home')">Home</li>
+          <li onclick="navigate('dashboard')">Dashboard</li>
+          <li onclick="navigate('about')">How it works</li>
+          <li onclick="startTour()">Take a tour</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Support</h4>
+        <ul class="footer-links">
+          <li onclick="openLink('support')">Help Center</li>
+          <li onclick="openLink('privacy')">Privacy Policy</li>
+          <li onclick="openLink('support')">Contact Us</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Connect</h4>
+        <div class="footer-socials">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="GitHub">GitHub</a>
+          <a href="#" aria-label="Instagram">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2024 FairShare Inc. All rights reserved.</div>
+      <div>Made with ❤️ for better friendships.</div>
+    </div>
+  </footer>
+
+
+  <!-- ADD EXPENSE MODAL -->
+  <!-- ADD EXPENSE MODAL — fully wired -->
+  <div class="modal-backdrop" id="add-expense-modal" onclick="closeModalOnBackdrop(event,'add-expense-modal')">
+    <div class="modal" style="max-width:520px">
+      <div class="modal-header">
+        <div class="modal-title">➕ Add Expense</div>
+        <button class="modal-close" onclick="closeModal('add-expense-modal')">✕</button>
+      </div>
+      <form id="add-expense-form" onsubmit="submitAddExpense(event)">
+        <div class="form-group">
+          <label class="form-label">Description *</label>
+          <input type="text" id="expense-desc" class="form-input" placeholder="e.g. Dinner at Hakkasan" required>
+          <div id="expense-desc-error" style="color:var(--red);font-size:.78rem;margin-top:.25rem"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Amount *</label>
+            <input type="number" id="expense-amount" class="form-input" placeholder="0.00" min="1" step="0.01" required>
+            <div id="expense-amount-error" style="color:var(--red);font-size:.78rem;margin-top:.25rem"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Currency</label>
+            <select id="expense-currency" class="form-input">
+              <option value="INR">₹ INR</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Group *</label>
+            <select id="expense-group" class="form-input" required>
+              <option value="">Select group…</option>
+            </select>
+            <div id="expense-group-error" style="color:var(--red);font-size:.78rem;margin-top:.25rem"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="expense-category" class="form-input">
+              <option value="Food">🍽️ Food</option>
+              <option value="Stay">🏨 Stay</option>
+              <option value="Transport">⛽ Transport</option>
+              <option value="Entertainment">🎬 Entertainment</option>
+              <option value="Shopping">🛒 Shopping</option>
+              <option value="Bills">🏠 Bills</option>
+              <option value="Other">💸 Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Paid By</label>
+          <select id="expense-paid-by" class="form-input">
+            <option value="me">You</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Split Method</label>
+          <div class="split-tabs">
+            <button type="button" class="split-tab active" onclick="activateSplitTab(this);window._splitMethod='equal'">Equal</button>
+            <button type="button" class="split-tab" onclick="activateSplitTab(this);window._splitMethod='custom'">Custom ₹</button>
+            <button type="button" class="split-tab" onclick="activateSplitTab(this);window._splitMethod='percent'">By %</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="date" id="expense-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes (optional)</label>
+            <input type="text" id="expense-notes" class="form-input" placeholder="Any notes…">
+          </div>
+        </div>
+        <!-- Live split preview -->
+        <div id="expense-split-preview" style="background:rgba(124,106,245,.08);border:1px solid rgba(124,106,245,.2);border-radius:10px;padding:.85rem;margin-bottom:.85rem;display:none">
+          <div style="font-size:.78rem;font-weight:600;color:var(--accent);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em">Split Preview</div>
+          <div id="expense-split-rows" style="display:flex;flex-direction:column;gap:.35rem"></div>
+        </div>
+        <div id="add-expense-error" style="color:var(--red);font-size:.82rem;margin-bottom:.5rem;text-align:center"></div>
+        <button type="submit" id="btn-add-expense" class="btn btn-primary" style="width:100%;justify-content:center;padding:.85rem;font-size:1rem">
+          ✓ Add Expense
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PAYMENT MODAL — proper pay flow -->
+  <div class="modal-backdrop" id="payment-modal" onclick="closeModalOnBackdrop(event,'payment-modal')">
+    <div class="modal" style="max-width:440px">
+      <div class="modal-header">
+        <div class="modal-title">💳 Pay Now</div>
+        <button class="modal-close" onclick="closeModal('payment-modal')">✕</button>
+      </div>
+      <div id="payment-modal-body">
+        <!-- dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE GROUP MODAL —fully wired -->
+  <div class="modal-backdrop" id="create-group-modal" onclick="closeModalOnBackdrop(event,'create-group-modal')">
+    <div class="modal" style="max-width:500px">
+      <div class="modal-header">
+        <div class="modal-title">🏗️ Create Group</div>
+        <button class="modal-close" onclick="closeModal('create-group-modal')">✕</button>
+      </div>
+      <form id="create-group-form" onsubmit="submitCreateGroup(event)">
+        <div class="form-group">
+          <label class="form-label">Group Name *</label>
+          <input type="text" id="group-name" class="form-input" placeholder="e.g. Europe Trip 2025" required maxlength="50">
+          <div id="group-name-error" style="color:var(--red);font-size:.78rem;margin-top:.25rem"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:0 0 100px">
+            <label class="form-label">Emoji</label>
+            <input type="text" id="group-emoji" class="form-input" placeholder="🏖️" maxlength="4" style="font-size:1.4rem;text-align:center">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Default Currency</label>
+            <select id="group-currency" class="form-input">
+              <option value="INR">₹ INR</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description (optional)</label>
+          <input type="text" id="group-description" class="form-input" placeholder="What's this group for?">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Invite Members (emails, comma separated)</label>
+          <input type="text" id="group-invite-emails" class="form-input" placeholder="priya@email.com, rahul@email.com">
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.25rem">They can join with the invite link you'll get</div>
+        </div>
+        <div id="create-group-error" style="color:var(--red);font-size:.82rem;margin-bottom:.5rem;text-align:center"></div>
+        <div style="display:flex;gap:.75rem;margin-top:.5rem">
+          <button type="button" class="btn btn-ghost" style="flex:1;justify-content:center" onclick="closeModal('create-group-modal')">Cancel</button>
+          <button type="submit" id="btn-create-group" class="btn btn-primary" style="flex:1;justify-content:center">🔗 Create &amp; Get Invite Link</button>
+        </div>
+      </form>
+      <div id="group-invite-panel" style="display:none;margin-top:1rem;padding:1rem;background:rgba(45,212,167,.08);border:1px solid rgba(45,212,167,.25);border-radius:12px">
+        <div style="font-size:.82rem;font-weight:600;color:var(--green);margin-bottom:.5rem">✅ Group created! Share this invite link:</div>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <input type="text" id="group-invite-link" class="form-input" readonly style="font-size:.8rem;font-family:'JetBrains Mono',monospace;flex:1">
+          <button class="btn btn-ghost btn-sm" onclick="copyInviteLink()" id="copy-invite-btn">📋 Copy</button>
+        </div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.5rem">Invite code: <span id="group-invite-code" style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:600"></span></div>
+        <button class="btn btn-ghost btn-sm" style="margin-top:.75rem;width:100%;justify-content:center" onclick="closeModal('create-group-modal')">Done →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONBOARDING TOUR -->
+  <div class="onboarding-overlay" id="onboarding">
+    <div class="tour-spotlight" id="tour-spotlight"></div>
+    <div class="tour-card" id="tour-card">
+      <div class="tour-step-num" id="tour-step-num">Step 1 of 5</div>
+      <div class="tour-title" id="tour-title">Welcome to FairShare! 🎉</div>
+      <div class="tour-desc" id="tour-desc">Let's take a quick tour so you can start splitting expenses with confidence.
+        This will only take a minute.</div>
+      <div class="tour-actions">
+        <div class="tour-dots" id="tour-dots"></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-ghost btn-sm" onclick="endTour()">Skip</button>
+          <button class="btn btn-ghost btn-sm" id="tour-prev-btn" onclick="prevTourStep()" disabled>← Back</button>
+          <button class="btn btn-primary btn-sm" id="tour-next-btn" onclick="nextTourStep()">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE PASSWORD MODAL -->
+  <div class="modal-backdrop" id="change-password-modal" onclick="closeModalOnBackdrop(event,'change-password-modal')">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Change Password</div>
+        <button class="modal-close" onclick="closeModal('change-password-modal')">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Current Password</label>
+        <input type="password" class="form-input" placeholder="••••••••">
+      </div>
+      <div class="form-group">
+        <label class="form-label">New Password</label>
+        <input type="password" class="form-input" placeholder="Min. 8 characters">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="form-input" placeholder="••••••••">
+      </div>
+      <div style="display:flex;gap:.75rem">
+        <button class="btn btn-ghost" style="flex:1;justify-content:center"
+          onclick="closeModal('change-password-modal')">Cancel</button>
+        <button class="btn btn-primary" style="flex:1;justify-content:center"
+          onclick="closeModal('change-password-modal')">Update Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2FA MODAL -->
+  <div class="modal-backdrop" id="2fa-modal" onclick="closeModalOnBackdrop(event,'2fa-modal')">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Enable Two-Factor Authentication</div>
+        <button class="modal-close" onclick="closeModal('2fa-modal')">✕</button>
+      </div>
+      <div style="background:var(--surface);padding:1rem;border-radius:10px;margin-bottom:1rem;text-align:center">
+        <div style="font-size:.85rem;color:var(--muted);margin-bottom:.5rem">Scan this QR code with Google Authenticator
+        </div>
+        <div style="font-size:3rem">📱</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.5rem">Or enter code: 4A5F 8K9L 2M3N 0P1Q</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Enter 6-digit code</label>
+        <input type="text" class="form-input" placeholder="000000" maxlength="6"
+          style="text-align:center;font-size:1.2rem;letter-spacing:.2em;font-family:'JetBrains Mono'">
+      </div>
+      <div style="display:flex;gap:.75rem">
+        <button class="btn btn-ghost" style="flex:1;justify-content:center"
+          onclick="closeModal('2fa-modal')">Cancel</button>
+        <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="closeModal('2fa-modal')">✓ Verify
+          & Enable</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SESSIONS MODAL -->
+  <div class="modal-backdrop" id="sessions-modal" onclick="closeModalOnBackdrop(event,'sessions-modal')">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Active Sessions</div>
+        <button class="modal-close" onclick="closeModal('sessions-modal')">✕</button>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon" style="background:rgba(45,212,167,.15)">💻</div>
+        <div class="activity-info">
+          <div class="activity-title">Chrome on Windows</div>
+          <div class="activity-meta">Last active: Today at 3:45 PM</div>
+        </div>
+        <button class="btn btn-ghost btn-sm">This device</button>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon" style="background:rgba(245,166,35,.15)">📱</div>
+        <div class="activity-info">
+          <div class="activity-title">Safari on iPhone</div>
+          <div class="activity-meta">Last active: 2 days ago</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="removeSession(this)">Remove</button>
+      </div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+        <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center">🚪 Logout All Other
+          Sessions</button>
+      </div>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:.75rem"
+        onclick="closeModal('sessions-modal')">Done</button>
+    </div>
+  </div>
+
+  <!-- DELETE ACCOUNT MODAL -->
+  <div class="modal-backdrop" id="delete-account-modal" onclick="closeModalOnBackdrop(event,'delete-account-modal')">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" style="color:var(--red)">⚠️ Delete Account</div>
+        <button class="modal-close" onclick="closeModal('delete-account-modal')">✕</button>
+      </div>
+      <div
+        style="background:rgba(245,90,106,.1);padding:1rem;border-radius:10px;margin-bottom:1rem;border:1px solid rgba(245,90,106,.2)">
+        <div style="color:var(--red);font-size:.9rem;font-weight:600;margin-bottom:.5rem">This action cannot be undone!
+        </div>
+        <div style="color:var(--muted);font-size:.85rem;line-height:1.6">
+          Your account and all associated data, including:
+          <ul style="margin:.5rem 0;padding-left:1.25rem">
+            <li>All groups and expenses</li>
+            <li>Payment history</li>
+            <li>Personal information</li>
+          </ul>
+          will be permanently deleted.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm by typing your email</label>
+        <input type="email" class="form-input" placeholder="darshana.ahuja@email.com">
+      </div>
+      <div style="display:flex;gap:.75rem">
+        <button class="btn btn-ghost" style="flex:1;justify-content:center"
+          onclick="closeModal('delete-account-modal')">Cancel</button>
+        <button class="btn btn-danger" style="flex:1;justify-content:center">Yes, Delete My Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOIN GROUP MODAL -->
+  <div class="modal-backdrop" id="join-group-modal" onclick="closeModalOnBackdrop(event,'join-group-modal')">
+    <div class="modal" style="max-width:460px">
+      <div class="modal-header">
+        <div class="modal-title">🔗 Join a Group</div>
+        <button class="modal-close" onclick="closeModal('join-group-modal')">✕</button>
+      </div>
+      <div id="join-group-body" style="padding:0 1.5rem 1.5rem">
+        <p style="color:var(--muted);font-size:.85rem;margin-bottom:1.25rem">Paste an invite link <em>or</em> enter a 8-character invite code to join an existing group.</p>
+
+        <!-- Tabs -->
+        <div style="display:flex;gap:.5rem;margin-bottom:1.25rem;background:rgba(255,255,255,.04);border-radius:10px;padding:.3rem">
+          <button id="join-tab-link" class="pay-tab active" onclick="switchJoinTab('link',this)"
+            style="flex:1;padding:.55rem;border:none;background:rgba(124,106,245,.18);color:var(--accent);border-radius:8px;font-weight:600;font-size:.82rem;cursor:pointer;transition:all .2s">
+            🔗 Invite Link
+          </button>
+          <button id="join-tab-code" class="pay-tab" onclick="switchJoinTab('code',this)"
+            style="flex:1;padding:.55rem;border:none;background:transparent;color:var(--muted);border-radius:8px;font-weight:600;font-size:.82rem;cursor:pointer;transition:all .2s">
+            🔑 Invite Code
+          </button>
+        </div>
+
+        <div id="join-panel-link">
+          <div class="form-group">
+            <label class="form-label">Invite Link</label>
+            <input type="text" id="join-link-input" class="form-input" placeholder="https://fairshare.app/?join=XXXXXXXX" autocomplete="off">
+            <div id="join-link-error" style="color:var(--red);font-size:.78rem;margin-top:.3rem"></div>
+          </div>
+        </div>
+
+        <div id="join-panel-code" style="display:none">
+          <div class="form-group">
+            <label class="form-label">Invite Code</label>
+            <input type="text" id="join-code-input" class="form-input" placeholder="e.g. A1B2C3D4"
+              maxlength="8" style="text-transform:uppercase;letter-spacing:.15em;font-family:'JetBrains Mono',monospace;font-size:1.1rem;text-align:center"
+              oninput="this.value=this.value.toUpperCase()">
+            <div id="join-code-error" style="color:var(--red);font-size:.78rem;margin-top:.3rem"></div>
+          </div>
+        </div>
+
+        <div id="join-group-error" style="color:var(--red);font-size:.82rem;margin-bottom:.5rem;text-align:center;min-height:1.2rem"></div>
+
+        <div style="display:flex;gap:.75rem;margin-top:.25rem">
+          <button type="button" class="btn btn-ghost" style="flex:1;justify-content:center" onclick="closeModal('join-group-modal')">Cancel</button>
+          <button type="button" id="btn-join-group" class="btn btn-primary" style="flex:1;justify-content:center" onclick="processJoinGroup()">Join Group →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULAR SCRIPTS -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/tour.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <!-- API Bridge: connects frontend to backend (loaded last to override auth handlers) -->
+  <script src="js/api-bridge.js"></script>
+  <script src="js/features.js"></script>
+
+</body>
+
+</html>
