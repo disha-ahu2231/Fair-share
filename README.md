@@ -1,5 +1,34 @@
 # FairShare Backend — Setup & API Reference
 
+# FairShare
+
+FairShare is a full-stack bill-splitting web application that helps users create groups, manage shared expenses, calculate balances, and record settlements.
+
+## Tech Stack
+
+### Frontend
+- HTML
+- CSS
+- JavaScript
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT Authentication
+
+## Key Features
+
+- User signup and login
+- Create and manage expense groups
+- Add and split expenses
+- Automatic balance calculation
+- Track settlements
+- Secure JWT-based authentication
+- Real-time synchronization between frontend and backend
+
+
+
 ## What was added
 
 The backend now covers the full app surface area:
